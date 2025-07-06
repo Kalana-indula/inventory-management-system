@@ -17,3 +17,19 @@ body,
     @apply text-gray-900;
 }
 
+/* Styles for screens with a minimum width of 768px (typically tablets and larger) */
+@media(min-width: 768px){
+    .custom-grid-rows {
+        /* Creates 8 rows in the grid, each with a height of 20 viewport height units */
+        grid-template-rows: repeat(8, 20vh);
+    }
+}
+
+/* Styles for screens with a minimum width of 1280px (typically larger desktop screens) */
+@media (min-width: 1280px) {
+    .custom-grid-rows {
+        /* Creates 8 rows in the grid, each with a smaller height of 7.5 viewport height units */
+        /* This provides a more compact layout on larger screens */
+        grid-template-rows: repeat(8, 7.5vh);
+    }
+}
