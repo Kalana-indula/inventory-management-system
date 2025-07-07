@@ -1,33 +1,31 @@
 package org.inventory.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "expenses")
-public class Expense {
+@Table(name = "category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "amount")
-    private Integer amount;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "date")
-    private LocalDateTime date;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "category")
+    private List<Expense> expenses;
 }

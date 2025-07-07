@@ -1,5 +1,6 @@
 package org.inventory.app.controller;
 
+import org.inventory.app.dto.ExpenseDto;
 import org.inventory.app.entity.Expense;
 import org.inventory.app.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,31 @@ public class ExpenseController {
     }
 
     @PostMapping("/expenses")
-    public ResponseEntity<?> createExpense(@RequestBody  Expense expense) {
+    public ResponseEntity<?> createExpense(@RequestBody ExpenseDto expenseDto) {
         try{
-            Expense createdExpense=expenseService.createExpense(expense);
+            Expense createdExpense=expenseService.createExpense(expenseDto);
 
             return ResponseEntity.status(HttpStatus.OK).body(createdExpense);
         }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/categories/{categoryId}/expenses")
+    public ResponseEntity<?> findExpensesByCategory(@PathVariable Long categoryId){
+        try{
+            List<Expense> expenses=expenseService.getExpensesByCategory(categoryId);
+
+            if(expenses==null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No categories found");
+            }
+
+            if(expenses.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Expenses found");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(expenses);
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
