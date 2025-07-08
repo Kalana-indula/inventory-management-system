@@ -3,6 +3,7 @@
 import CardPopularProducts from "@/app/dashboard/CardPopularProducts";
 import CardPurchaseSummary from "@/app/dashboard/CardPurchaseSummary";
 import CardSalesSummary from "@/app/dashboard/CardSalesSummary";
+import CardExpenseSummary from "@/app/dashboard/CardExpenseSummary";
 
 const Dashboard = () => {
 
@@ -13,7 +14,7 @@ const Dashboard = () => {
                 <CardPopularProducts/>
                 <CardSalesSummary/>
                 <CardPurchaseSummary/>
-                <div className="row-span-3 bg-gray-500"/>
+                <CardExpenseSummary/>
                 <div className="md:row-span-1 xl:row-span-2 bg-gray-500"/>
                 <div className="md:row-span-1 xl:row-span-2 bg-gray-500"/>
                 <div className="md:row-span-1 xl:row-span-2 bg-gray-500"/>
