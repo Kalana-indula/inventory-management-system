@@ -24,13 +24,19 @@ const CardPopularProducts = () => {
     //fetching product data
 
     const getProductDetails = async ()=>{
-        const response= await axios.get(`http://localhost:8080/api/products`);
-        console.log(response.data);
-        setProducts(response.data);
+
+        try{
+            const response= await axios.get(`http://localhost:8080/api/products`);
+            // console.log(response.data);
+            setProducts(response.data);
+        }catch(error){
+            console.log(error);
+        }
+
     }
     return (
         <>
-            <div className="row-span-3 xl:row-span-6 bg-white shadow-md rounded-2xl pb-16">
+            <div className="row-span-3 xl:row-span-6 bg-white shadow-md rounded-2xl pb-4 overflow-auto">
                 {isLoading ? (
                     <div className="m-5"> Loading... </div>
                 ) : (
@@ -40,7 +46,7 @@ const CardPopularProducts = () => {
                         </h3>
                         <hr/>
                         <div className="overflow-auto h-full">
-                            {products && products.map((product) => (
+                            {products && products.slice(0,6).map((product) => (
                                 <div
                                     key={product.id}
                                     className="flex items-center justify-between gap-3 px-5 py-7 border-b"
@@ -65,7 +71,7 @@ const CardPopularProducts = () => {
                                         <button className="p-2 rounded-full bg-blue-100 text-blue-600 mr-2">
                                             <ShoppingBag className="w-4 h-4"/>
                                         </button>
-                                        {product.stockQuantity} is Available
+                                        {product.stockQuantity} items left
                                     </div>
                                 </div>
                             ))}
